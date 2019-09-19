@@ -179,6 +179,23 @@ public:
       __i = insert(__i, value_type(__k, _STLP_DEFAULT_CONSTRUCTED(_Tp)));
     return (*__i).second;
   }
+#define __N(msgid) (msgid)
+  _Tp &
+  at(const _KT &__k)
+  {
+    iterator __i = lower_bound(__k);
+    if (__i == end() || key_comp()(__k, (*__i).first))
+      __stl_throw_out_of_range(__N("map::at"));
+    return (*__i).second;
+  }
+  const _Tp &
+  at(const _KT &__k) const
+  {
+    const_iterator __i = lower_bound(__k);
+    if (__i == end() || key_comp()(__k, (*__i).first))
+      __stl_throw_out_of_range(__N("map::at"));
+    return (*__i).second;
+  }
   void swap(_Self& __x) { _M_t.swap(__x._M_t); }
 #if defined (_STLP_USE_PARTIAL_SPEC_WORKAROUND) && !defined (_STLP_FUNCTION_TMPL_PARTIAL_ORDER)
   void _M_swap_workaround(_Self& __x) { swap(__x); }
